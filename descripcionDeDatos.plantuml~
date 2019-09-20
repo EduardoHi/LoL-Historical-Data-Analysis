@@ -1,0 +1,106 @@
+@startuml
+
+class Match {
+      address : URL from where it was scrapped
+      goldDiff : string, with an embedded list of diffs
+      goldBlue : string, with an embedded list of values (per minute?)
+      bKills : list of tuples with time, kill
+}
+
+Match -- MatchInfo
+
+class Kill {
+      team : TeamTag
+      time : Float
+      Victim : Player
+      Killer : Player
+      Assist : [Player]
+      x_pos : Integer
+      y_pos : Integer
+}
+
+class Gold {
+      goldPerMinute : [Integer]
+}
+
+
+class Bans {
+      bans : [Champion]
+}
+note top: "SHOULD NOT BE A CLASS"
+
+class MatchInfo {
+      league : League
+      year : Date
+      season : Season
+      competitionType : CompetitionType
+      blueTeamTag : TeamTag
+      redTeamTag : TeamTag
+      
+      bResult : 1 | 0
+      rResult : 1 | 0
+      gameLength : Integer
+
+      blueTop : Player
+      blueTopChamp : Champion
+      blueJungle : Player
+      blueJungleChamp : Champion
+      blueMiddle : Player
+      blueMiddleChamp : Champion
+      blueADC : Player
+      blueADCChamp : Champion
+      blueSupport : Player
+      blueSupportChamp : Champion
+
+      redTop : Player
+      redTopChamp : Champion
+      redJungle : Player
+      redJungleChamp : Champion
+      redMiddle : Player
+      redMiddleChamp : Champion
+      redADC : Player
+      redADCChamp : Champion
+      redSupport : Player
+      redSupportChamp : Champion
+}
+
+class Monster {
+      type : MonsterType
+      time : Integer
+}
+
+enum MonsterType {
+     DRAGON
+     BARON_NASHOR
+     RIFT_HERALD
+     FIRE_DRAGON
+     
+}
+
+enum Season {
+     Summer
+     Spring
+}
+
+enum CompetitionType {
+     Season
+     Playoffs
+     International
+     Promotion
+}
+
+enum TeamTag {
+     SKT
+     TSM
+     "..."
+     note: "The number of team tags is +240"
+}
+
+enum Champion {
+     LeeSin
+     Gragas
+     "..."
+     note: "The number of champions is +100"
+}
+
+@enduml

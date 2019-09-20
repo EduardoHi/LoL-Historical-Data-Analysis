@@ -1,0 +1,166 @@
+@startuml
+
+class Kill {
+      time : Float
+      team : TeamTag
+      Victim : PlayerTag
+      Killer : PlayerTag
+      Assist : [PlayerTag]
+      x_pos : Integer
+      y_pos : Integer
+}
+
+Kill -- TeamTag
+Kill -- PlayerTag
+
+class Team {
+      tag : TeamTag
+      top : Player
+      jungle : Player
+      middle : Player
+      adc : Player
+      support : Player
+      bans : [Champion]
+}
+
+Team -- Champion
+Team -- TeamTag
+Team -- Player
+
+class Player {
+      tag : PlayerTag
+      champion : Champion
+      goldPerMinute : [Integer]
+}
+
+Player -- PlayerTag
+Player -- Champion
+
+class Match {
+      address : URL from where it was scrapped
+      league : League
+      year : Year
+      season : Season
+      competitionType : CompetitionType
+      
+      bResult : 1 | 0
+      rResult : 1 | 0
+      gameLength : Integer
+
+      blueTeam : Team
+      redTeam : Team
+      monsterEvents : Monster
+      structureEvents : Structure
+      killEvents : Kill
+}
+Match -- League
+Match -- Year
+Match -- Season
+Match -- CompetitionType
+Match -- Team
+Match -- Monster
+Match -- Structure
+Match -- Kill
+
+class Monster {
+      type : MonsterType
+      time : Integer
+      team : TeamTag
+}
+
+Monster -- TeamTag
+Monster -- MonsterType
+
+enum MonsterType {
+     BARON_NASHOR
+     RIFT_HERALD
+     DRAGON
+     AIR_DRAGON
+     EARTH_DRAGON
+     FIRE_DRAGON
+     WATER_DRAGON
+     ELDER_DRAGON
+}
+
+class Structure {
+      lane: Lane
+      type: StructureType
+      time: Integer
+}
+
+Structure -- TeamTag
+Structure -- StructureType
+Structure -- Lane
+
+enum Lane {
+     MID_LANE
+     TOP_LANE
+     BOT_LANE
+}
+
+enum StructureType {
+     BASE_TURRET
+     FOUNTAIN_TURRET
+     INHIBITOR
+     INNER_TURRET
+     NEXUS_TURRET
+     OUTER_TURRET
+}
+
+enum Season {
+     Summer
+     Spring
+}
+
+enum CompetitionType {
+     Season
+     Playoffs
+     International
+     Promotion
+     Regional
+}
+
+enum TeamTag {
+     SKT
+     TSM
+     ...
+}
+
+enum PlayerTag {
+     Faker
+     ...
+}
+
+enum Champion {
+     LeeSin
+     Gragas
+     ...
+}
+
+enum League {
+     CBLoL
+     CLS
+     EULCS
+     IEM
+     LCK
+     LCL
+     LJL
+     LLN
+     LMS
+     MSI
+     NALCS
+     OPL
+     RR
+     TCL
+     WC
+}
+
+enum Year {
+     2014
+     2015
+     2016
+     2017
+     2018
+}
+
+@enduml
